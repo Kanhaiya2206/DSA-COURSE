@@ -1,58 +1,89 @@
-//REVERSE a linked list......
+//Delete loop in linked list...
 #include<stdio.h>
 #include<stdlib.h>
 
-struct node 
+struct node
 {
     int data;
-    struct node *next;
+    struct node* next;
 };
 
-void push(struct node** S, int data)
+
+struct node* Detectnode(struct node* S)
 {
-    // create a new linked list node from the heap
-    struct node* newNode = (struct node*)malloc(sizeof(struct node));
- 
-    newNode->data = data;
-    newNode->next = *S;
-    *S= newNode;
+    struct node* slow=S;
+    struct node* fast=S;
+    while(fast!=NULL && fast->next!=NULL)
+    {
+        slow=slow->next;
+        fast=fast->next->next;
+        if(slow==fast)
+        {
+            return slow;
+        }
+    }
+    return NULL;//Returning NULL means Cycle not present in List.
+    
 }
-
-struct node* Reverse_List(struct node* S)
+struct node* LoopStarting(struct node* S)
 {
-  struct node *p,*q;
-  while(S!=NULL)
-  {
-      p=q;
-      q=S;
-      S=S->next;
-      q->next=p;
-
-  }
-  return(q);
+    struct node* meet=Detectnode(S);
+    struct node* start=S;
+    while(start!=meet)
+    {
+        start=start->next;
+        meet=meet->next;
+    }
+    return start;
 }
+struct node* DeleteLoop(struct node* S)
+{
+    struct node* p=LoopStarting(S);
+    p->next=NULL;
 
+    return S;
+}
 int main()
 {
-    // input keys
-    int keys[] = { 1, 2, 3, 4, 5 };
-    int n = 5;
- 
-    struct node* head=NULL;
-    for (int i = n - 1; i >= 0; i--) {
-        push(&head, keys[i]);
-    }
     
-    struct node* a=Reverse_List(head);
+    struct node* a= NULL;
+    struct node* b= NULL;
+    struct node* c= NULL;
+    struct node* d,*e,*f= NULL;
 
-    printf("Reversed Linked List");
-    for(int i=0;i<n;i++)
+    a=(struct node*)malloc(sizeof(struct node)); 
+    b=(struct node*)malloc(sizeof(struct node));
+    c=(struct node*)malloc(sizeof(struct node));
+    d=(struct node*)malloc(sizeof(struct node));
+    e=(struct node*)malloc(sizeof(struct node));
+    f=(struct node*)malloc(sizeof(struct node));
+
+     struct node* S = a;
+
+    a->data=1;
+    a->next=b;
+
+    b->data=2;
+    b->next=c;
+
+    c->data=3;
+    c->next=d;
+
+    d->data=4;
+    d->next=e;
+    
+    e->data=5;
+    e->next=f;
+
+    f->data=6;
+    f->next=c;
+
+
+    struct node*k=DeleteLoop(S);
+    for(int i=0;i<6;i++)
     {
-       printf(" %d -> ",a->data);
-       a=a->next;
+    printf(" %d ->",k->data);
+    k=k->next;
     }
-    
-    
-
     return 0;
-}    
+}

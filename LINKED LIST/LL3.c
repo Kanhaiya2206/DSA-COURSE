@@ -1,54 +1,63 @@
-//kth node from last in Linked List
+//Detect loop in linked list...
 #include<stdio.h>
 #include<stdlib.h>
+#include<stdbool.h>
 
-struct node 
+struct node
 {
     int data;
-    struct node *next;
+    struct node* next;
 };
 
-void push(struct node** S, int data)
-{
-    // create a new linked list node from the heap
-    struct node* newNode = (struct node*)malloc(sizeof(struct node));
- 
-    newNode->data = data;
-    newNode->next = *S;
-    *S= newNode;
-}
 
-struct node* kth_last(struct node* S,int k)
+bool Detectnode(struct node* S)
 {
-  struct node* S1=S;
-  while(k!=1)
-  {
-      S1=S1->next;
-      k=k-1;
-  }
-  while(S1->next!=NULL)
-  {
-      S=S->next;
-      S1=S1->next;
-  }
-  return(S);
+    struct node* slow=S;
+    struct node* fast=S;
+    while(fast!=NULL && fast->next!=NULL)
+    {
+        slow=slow->next;
+        fast=fast->next->next;
+        if(slow==fast)
+        {
+        return true;
+        }
+        
+    
+    }
+    return false;//Returning false means Cycle not present in List.
+    
 }
-
 int main()
 {
-    // input keys
-    int keys[] = { 1, 2, 3, 4, 5 };
-    int n = 5;
- 
-    struct node* head=NULL;
-    for (int i = n - 1; i >= 0; i--) {
-        push(&head, keys[i]);
-    }
-    int k=4;
-    struct node* p=kth_last(head,k);
     
-    printf("kth last node from end is %d",p->data);
-    
+    struct node* a= NULL;
+    struct node* b= NULL;
+    struct node* c= NULL;
+    struct node* d= NULL;
+
+    a=(struct node*)malloc(sizeof(struct node)); 
+    b=(struct node*)malloc(sizeof(struct node));
+    c=(struct node*)malloc(sizeof(struct node));
+    d=(struct node*)malloc(sizeof(struct node));
+
+     struct node* S = a;
+
+    a->data=10;
+    a->next=b;
+
+    b->data=20;
+    b->next=c;
+
+    c->data=30;
+    c->next=d;
+
+    d->data=40;
+    d->next=b;
+
+   bool p= Detectnode(S);
+   printf("%s",p ? "true" : "false"); /*This is how we print boolean in C,if we 
+                                        use %d,p it will print 1 for true*/
 
     return 0;
-}    
+}

@@ -1,4 +1,4 @@
-//2nd Last Node in Linked List
+//REVERSE a linked list in given K group...
 #include<stdio.h>
 #include<stdlib.h>
 
@@ -18,37 +18,43 @@ void push(struct node** S, int data)
     *S= newNode;
 }
 
-struct node* second_last(struct node* S)
+struct node* Reverse_List(struct node* S,int k)
 {
-  if(S==NULL)
+  struct node *p,*q;
+  struct node *S1=S;
+  while(S1!=NULL && k--)
   {
-      printf("Empty list");
+      p=q;
+      q=S1;
+      S1=S1->next;
+      q->next=p;
+
   }
-  if(S->next==NULL)
-  {
-      printf("list have one element");
-  }
-  while(S->next->next!=NULL)
-  {
-       S=S->next;
-  }
-  return S;
+  if(S1!=NULL)
+    S->next=Reverse_List(S1,k);
+  return(q);
 }
 
 int main()
 {
     // input keys
-    int keys[] = {1,2,3,4,5};
+    int keys[] = { 1, 2, 3, 4, 5 };
     int n = 5;
  
     struct node* head=NULL;
     for (int i = n - 1; i >= 0; i--) {
         push(&head, keys[i]);
     }
+    int k=3;
+    struct node* a=Reverse_List(head,k);
 
-    struct node* p=second_last(head);
+    printf("Reversed Linked List");
+    for(int i=0;i<n;i++)
+    {
+       printf(" %d -> ",a->data);
+       a=a->next;
+    }
     
-    printf("2nd last node from end is %d",p->data);
     
 
     return 0;

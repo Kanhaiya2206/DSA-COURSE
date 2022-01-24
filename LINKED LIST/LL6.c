@@ -1,63 +1,55 @@
-//Detect loop in linked list...
+//Remove duplicates from Sorted Linked List....
 #include<stdio.h>
 #include<stdlib.h>
-#include<stdbool.h>
 
-struct node
+struct node 
 {
     int data;
-    struct node* next;
+    struct node *next;
 };
-
-
-bool Detectnode(struct node* S)
+void push(struct node** S, int data)
 {
-    struct node* slow=S;
-    struct node* fast=S;
-    while(fast!=NULL && fast->next!=NULL)
+    // create a new linked list node from the heap
+    struct node* newNode = (struct node*)malloc(sizeof(struct node));
+ 
+    newNode->data = data;
+    newNode->next = *S;
+    *S= newNode;
+}
+
+struct node* removeduplicate(struct node* head)
+{
+    struct node* S1=head;
+    while(S1!=NULL && S1->next!=NULL)
     {
-        slow=slow->next;
-        fast=fast->next->next;
-        if(slow==fast)
+        if(S1->data==S1->next->data)
         {
-        return true;
+            S1->next=S1->next->next;
         }
-        
-    
+        else
+          S1=S1->next;
     }
-    return false;//Returning false means Cycle not present in List.
+    return head;
     
 }
 int main()
 {
-    
-    struct node* a= NULL;
-    struct node* b= NULL;
-    struct node* c= NULL;
-    struct node* d= NULL;
+    // input keys
+    int keys[] = { 2, 2, 2, 2, 2 };
+    int n = 5;
+ 
+    struct node* head=NULL;
+    for (int i = n - 1; i >= 0; i--) {
+        push(&head, keys[i]);
+    }
 
-    a=(struct node*)malloc(sizeof(struct node)); 
-    b=(struct node*)malloc(sizeof(struct node));
-    c=(struct node*)malloc(sizeof(struct node));
-    d=(struct node*)malloc(sizeof(struct node));
+    struct node* p=removeduplicate(head);
 
-     struct node* S = a;
-
-    a->data=10;
-    a->next=b;
-
-    b->data=20;
-    b->next=c;
-
-    c->data=30;
-    c->next=d;
-
-    d->data=40;
-    d->next=b;
-
-   bool p= Detectnode(S);
-   printf("%s",p ? "true" : "false"); /*This is how we print boolean in C,if we 
-                                        use %d,p it will print 1 for true*/
+    for(int i=0;i<n;i++)
+    {
+       printf(" %d -> ",p->data);
+       p=p->next;
+    }
 
     return 0;
-}
+}    

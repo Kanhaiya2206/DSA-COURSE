@@ -1,4 +1,4 @@
-//Move Last node to First in Linked List....
+//2nd Last Node in Linked List
 #include<stdio.h>
 #include<stdlib.h>
 
@@ -7,6 +7,7 @@ struct node
     int data;
     struct node *next;
 };
+
 void push(struct node** S, int data)
 {
     // create a new linked list node from the heap
@@ -17,26 +18,27 @@ void push(struct node** S, int data)
     *S= newNode;
 }
 
-struct node* moveLastFirst(struct node* head)
+struct node* second_last(struct node* S)
 {
-    struct node* S1=head;
-    struct node* p;
-    while(S1->next!=NULL)
-    {
-        p=S1;
-        S1=S1->next;
-    }
-    S1->next=head;
-    head=S1;
-    p->next=NULL;
-
-    return head;
-    
+  if(S==NULL)
+  {
+      printf("Empty list");
+  }
+  if(S->next==NULL)
+  {
+      printf("list have one element");
+  }
+  while(S->next->next!=NULL)
+  {
+       S=S->next;
+  }
+  return S;
 }
+
 int main()
 {
     // input keys
-    int keys[] = { 1, 2, 3, 4, 5 };
+    int keys[] = {1,2,3,4,5};
     int n = 5;
  
     struct node* head=NULL;
@@ -44,13 +46,10 @@ int main()
         push(&head, keys[i]);
     }
 
-    struct node* a=moveLastFirst(head);
-
-    for(int i=0;i<n;i++)
-    {
-       printf(" %d -> ",a->data);
-       a=a->next;
-    }
+    struct node* p=second_last(head);
+    
+    printf("2nd last node from end is %d",p->data);
+    
 
     return 0;
 }    

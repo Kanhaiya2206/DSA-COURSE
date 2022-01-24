@@ -1,61 +1,78 @@
-//REVERSE a linked list in given K group...
+//Find starting point of loop in linked list...
 #include<stdio.h>
 #include<stdlib.h>
 
-struct node 
+struct node
 {
     int data;
-    struct node *next;
+    struct node* next;
 };
 
-void push(struct node** S, int data)
+
+struct node* Detectnode(struct node* S)
 {
-    // create a new linked list node from the heap
-    struct node* newNode = (struct node*)malloc(sizeof(struct node));
- 
-    newNode->data = data;
-    newNode->next = *S;
-    *S= newNode;
+    struct node* slow=S;
+    struct node* fast=S;
+    while(fast!=NULL && fast->next!=NULL)
+    {
+        slow=slow->next;
+        fast=fast->next->next;
+        if(slow==fast)
+        {
+            return slow;
+        }
+    }
+    return NULL;//Returning NULL means Cycle not present in List.
+    
 }
-
-struct node* Reverse_List(struct node* S,int k)
+struct node* LoopStarting(struct node* S)
 {
-  struct node *p,*q;
-  struct node *S1=S;
-  while(S1!=NULL && k--)
-  {
-      p=q;
-      q=S1;
-      S1=S1->next;
-      q->next=p;
-
-  }
-  if(S1!=NULL)
-    S->next=Reverse_List(S1,k);
-  return(q);
+    struct node* meet=Detectnode(S);
+    struct node* start=S;
+    while(start!=meet)
+    {
+        start=start->next;
+        meet=meet->next;
+    }
+    return start;
 }
-
 int main()
 {
-    // input keys
-    int keys[] = { 1, 2, 3, 4, 5 };
-    int n = 5;
- 
-    struct node* head=NULL;
-    for (int i = n - 1; i >= 0; i--) {
-        push(&head, keys[i]);
-    }
-    int k=3;
-    struct node* a=Reverse_List(head,k);
-
-    printf("Reversed Linked List");
-    for(int i=0;i<n;i++)
-    {
-       printf(" %d -> ",a->data);
-       a=a->next;
-    }
     
-    
+    struct node* a= NULL;
+    struct node* b= NULL;
+    struct node* c= NULL;
+    struct node* d,*e,*f= NULL;
 
+    a=(struct node*)malloc(sizeof(struct node)); 
+    b=(struct node*)malloc(sizeof(struct node));
+    c=(struct node*)malloc(sizeof(struct node));
+    d=(struct node*)malloc(sizeof(struct node));
+    e=(struct node*)malloc(sizeof(struct node));
+    f=(struct node*)malloc(sizeof(struct node));
+
+     struct node* S = a;
+
+    a->data=1;
+    a->next=b;
+
+    b->data=2;
+    b->next=c;
+
+    c->data=3;
+    c->next=d;
+
+    d->data=4;
+    d->next=e;
+    
+    e->data=5;
+    e->next=f;
+
+    f->data=6;
+    f->next=c;
+
+
+    struct node*k=LoopStarting(S);
+    printf("Stating point:%d",k->data);
     return 0;
-}    
+}
