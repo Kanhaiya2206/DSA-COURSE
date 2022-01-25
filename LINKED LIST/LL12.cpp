@@ -4,7 +4,7 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-/* Link list Node */
+
 struct Node
 {
     int data;
