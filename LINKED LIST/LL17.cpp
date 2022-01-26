@@ -1,5 +1,5 @@
 /* Program to split a circular linked list into two halves */
-//Only Logic pari i.e func split list is done by me.
+//Only Logic part i.e func split list is done by me.
 
 #include<stdio.h> 
 #include<stdlib.h> 
