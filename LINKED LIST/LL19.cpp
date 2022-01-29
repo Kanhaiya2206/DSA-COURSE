@@ -163,21 +163,17 @@ if (*head == NULL)
  if (*head_ref == NULL)
         return;
  
-    // reverse procedure same as reversing a
-    // singly linked list
-    Node* prev = NULL;
-    Node* current = *head_ref;
-    Node* next;
-    do {
-        next = current->next;
-        current->next = prev;
-        prev = current;
-        current = next;
-    } while (current != (*head_ref));
- 
-    // adjutsing the links so as to make the
-    // last node point to the first node
-    (*head_ref)->next = prev;
-    *head_ref = prev;
+    Node* prev;
+    Node* current=*head_ref;
+    Node* nex=current->next;
+    while(nex!=(*head_ref))
+    {
+       prev=current;
+       current=nex;
+       nex=nex->next;
+       current->next=prev;
+    }
+    (*head_ref)->next=current;
+    *head_ref=current;
 
 }
