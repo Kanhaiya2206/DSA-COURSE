@@ -10,7 +10,7 @@ struct node
 
 void push(struct node** S, int data)
 {
-    // create a new linked list node from the heap
+    
     struct node* newNode = (struct node*)malloc(sizeof(struct node));
  
     newNode->data = data;
@@ -36,7 +36,7 @@ struct node* kth_last(struct node* S,int k)
 
 int main()
 {
-    // input keys
+    
     int keys[] = { 1, 2, 3, 4, 5 };
     int n = 5;
  
