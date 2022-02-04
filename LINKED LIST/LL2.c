@@ -37,7 +37,7 @@ struct node* Reverse_List(struct node* S,int k)
 
 int main()
 {
-    // input keys
+    
     int keys[] = { 1, 2, 3, 4, 5 };
     int n = 5;
  
