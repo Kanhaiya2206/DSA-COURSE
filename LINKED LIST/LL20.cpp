@@ -1,4 +1,4 @@
-//Reverse Doubly Linked List...
+//Reverse Doubly Linked List
 
 #include <bits/stdc++.h>
 using namespace std;
