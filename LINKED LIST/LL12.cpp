@@ -39,7 +39,7 @@ Node* inputList(int size)
 }
 
 
-/* Driver program to test above function*/
+
 int main()
 {
     int T,n1,n2,n3;
