@@ -3,7 +3,7 @@
 #include <cstdio>
 using namespace std;
  
-/* a node of the singly linked list */
+
 struct node
 {
     int data;
