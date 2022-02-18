@@ -21,7 +21,6 @@ void push(struct node** head_ref, int new_data)
     /* allocate node */
     struct node* new_node = new node(new_data);
  
-    /* link the old list off the new node */
     new_node->next = (*head_ref);
  
     /* move the head to point to the new node */
