@@ -1,29 +1,54 @@
-vector<int> topView(Node *root)
+#include<bits/stdc++.h>
+using namespace std;
+
+
+struct Node
+{
+    int data;
+    Node* left;
+    Node* right;
+};
+
+class Solution
+{
+    public:
+    //Function to return a list of nodes visible from the top view 
+    //from left to right in Binary Tree.
+    
+    vector<int> topView(Node *root)
     {
-        vector<int>res;
-        map<int,int>mp;
-        queue<pair<Node*,int>>q;
-        q.push({root,0});
+        //Your code here
+        vector<int> ans;
+        queue<pair<int,Node*>> q;
+        map<int,int> mp;
+        
+        q.push({0,root});
+        
         while(!q.empty())
         {
-            auto x=q.front();
+            auto temp=q.front();
             q.pop();
-            Node *curr=x.first;
-            int i=x.second;
-            if(mp.find(i)==mp.end())
-            mp[i]=curr->data;
+            
+            Node* curr=temp.second;
+            int hd = temp.first;
+            
+            if(mp.find(hd)==mp.end())
+            {
+                mp[hd]=curr->data;
+            }
             if(curr->left)
-            {
-                q.push({curr->left,i-1});
-            }
-             if(curr->right)
-            {
-                q.push({curr->right,i+1});
-            }
+               q.push({hd-1,curr->left});
+            
+            if(curr->right)
+               q.push({hd+1,curr->right});
+            
         }
-        for(auto i:mp)
+        for(auto x:mp)
         {
-            res.push_back(i.second);
+            ans.push_back(x.second);
         }
-        return res;
+        return ans;
+      
     }
+
+};
