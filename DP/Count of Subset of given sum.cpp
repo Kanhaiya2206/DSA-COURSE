@@ -42,7 +42,6 @@ class Solution{
 
 // } Driver Code Ends
 /*why do we need to initialize from j=0?
-that's where i was stuck, but now the issue got resolved.
 
 Reason is:
 
